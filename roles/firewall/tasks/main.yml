@@ -1,0 +1,25 @@
+---
+- name: Installer UFW
+  apt:
+    name: ufw
+    state: present
+
+- name: Autoriser SSH
+  ufw:
+    rule: allow
+    port: "22"
+
+- name: Autoriser HTTP
+  ufw:
+    rule: allow
+    port: "80"
+
+- name: Autoriser HTTPS
+  ufw:
+    rule: allow
+    port: "443"
+
+- name: Activer UFW
+  ufw:
+    state: enabled
+    policy: deny

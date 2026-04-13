@@ -1,0 +1,39 @@
+---
+- name: Installer Nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+
+- name: Déployer la configuration Nginx
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/app
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Recharger Nginx
+
+- name: Activer le site
+  file:
+    src: /etc/nginx/sites-available/app
+    dest: /etc/nginx/sites-enabled/app
+    state: link
+
+- name: Supprimer le site par défaut
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: Recharger Nginx
+
+- name: Démarrer et activer Nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+handlers:
+  - name: Recharger Nginx
+    service:
+      name: nginx
+      state: reloaded

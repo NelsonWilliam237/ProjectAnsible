@@ -1,0 +1,20 @@
+---
+- name: Mettre à jour les paquets
+  apt:
+    update_cache: yes
+    upgrade: dist
+    cache_valid_time: 3600
+
+- name: Installer les paquets de base
+  apt:
+    name:
+      - curl
+      - git
+      - unzip
+      - vim
+      - python3-pip
+    state: present
+
+- name: Configurer le fuseau horaire
+  timezone:
+    name: America/Toronto

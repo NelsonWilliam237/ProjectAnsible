@@ -1,0 +1,29 @@
+---
+- name: Installer MySQL
+  apt:
+    name:
+      - mysql-server
+      - python3-pymysql
+    state: present
+    update_cache: yes
+
+- name: Démarrer MySQL
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+
+- name: Créer la base de données
+  mysql_db:
+    name: "{{ mysql_db_name }}"
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Créer l'utilisateur MySQL
+  mysql_user:
+    name: "{{ mysql_db_user }}"
+    password: "{{ vault_mysql_db_password }}"
+    priv: "{{ mysql_db_name }}.*:ALL"
+    host: "{{ mysql_db_host }}"
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock

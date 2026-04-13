@@ -1,14 +1,29 @@
 ---
-- name: Déploiement stack web complète
+- name: Configuration commune de tous les serveurs
+  hosts: all
+  become: true
+  vars_files:
+    - Inventories/group_vars/all.yml
+    - Inventories/group_vars/vault.yml
+  roles:
+    - common
+    - firewall
+
+- name: Déploiement des serveurs web
   hosts: webservers
   become: true
   vars_files:
-    - vault.yml
-
+    - Inventories/group_vars/all.yml
+    - Inventories/group_vars/vault.yml
   roles:
-    - common       # 1. Préparer le serveur
-    - firewall     # 2. Sécuriser les accès
-    - nginx        # 3. Installer le serveur web
-    - php          # 4. Installer PHP-FPM
-    - mysql        # 5. Configurer la base de données
-    - app          # 6. Déployer l'application
+    - nginx
+    - php
+
+- name: Déploiement de la base de données
+  hosts: dbservers
+  become: true
+  vars_files:
+    - Inventories/group_vars/all.yml
+    - Inventories/group_vars/vault.yml
+  roles:
+    - mysql

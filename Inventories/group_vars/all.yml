@@ -1,0 +1,19 @@
+# Utilisateur système
+app_user: admin12
+
+# Nginx
+nginx_port: 80
+server_name: "mon-app.local"
+web_root: /var/www/html/app
+
+# PHP
+php_version: "8.1"
+
+# MySQL
+mysql_db_name: "app_db"
+mysql_db_user: "app_user"
+mysql_db_host: "10.0.2.13"
+
+# App
+app_repo: "https://github.com/NelsonWilliam237/ProjectAnsible.git"
+app_branch: "main"
