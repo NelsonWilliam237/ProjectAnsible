@@ -27,3 +27,10 @@
     host: "{{ mysql_db_host }}"
     state: present
     login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Autoriser MySQL à écouter sur toutes les interfaces
+  lineinfile:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    regexp: '^bind-address'
+    line: 'bind-address = 0.0.0.0'
+  notify: Redémarrer MySQL

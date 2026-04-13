@@ -1,0 +1,31 @@
+---
+- name: Créer le dossier web
+  file:
+    path: /var/www/html/app
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: '0755'
+
+- name: Déployer la page index.php
+  template:
+    src: index.php.j2
+    dest: /var/www/html/app/index.php
+    owner: www-data
+    group: www-data
+    mode: '0644'
+
+- name: Déployer le fichier de config .env
+  template:
+    src: env.j2
+    dest: /var/www/html/app/.env
+    owner: www-data
+    group: www-data
+    mode: '0640'
+
+- name: Vérifier que le dossier web appartient à www-data
+  file:
+    path: /var/www/html/app
+    owner: www-data
+    group: www-data
+    recurse: yes

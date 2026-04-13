@@ -1,0 +1,52 @@
+<?php
+$host     = '{{ mysql_db_host }}';
+$dbname   = '{{ mysql_db_name }}';
+$username = '{{ mysql_db_user }}';
+$password = '{{ vault_mysql_db_password }}';
+
+$connected = false;
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $connected = true;
+} catch (Exception $e) {
+    $error = $e->getMessage();
+}
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Stack Web - Ansible</title>
+  <style>
+    body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding: 40px; }
+    .card { background: white; border-radius: 12px; padding: 32px; max-width: 600px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    h1 { font-size: 22px; margin-bottom: 4px; }
+    .sub { color: #666; font-size: 14px; margin-bottom: 24px; }
+    .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 500; }
+    .ok   { background: #d1fae5; color: #065f46; }
+    .fail { background: #fee2e2; color: #991b1b; }
+    table { width: 100%; font-size: 14px; border-collapse: collapse; margin-top: 20px; }
+    td { padding: 8px 4px; border-bottom: 1px solid #f0f0f0; }
+    td:first-child { color: #888; width: 160px; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Projet Ansible — Stack Web</h1>
+  <p class="sub">Déployé automatiquement avec Ansible sur AWS</p>
+
+  <span class="badge <?= $connected ? 'ok' : 'fail' ?>">
+    Base de données : <?= $connected ? 'Connectée' : 'Erreur : ' . htmlspecialchars($error ?? '') ?>
+  </span>
+
+  <table>
+    <tr><td>Serveur web</td><td><?= gethostname() ?></td></tr>
+    <tr><td>Adresse IP</td><td><?= $_SERVER['SERVER_ADDR'] ?></td></tr>
+    <tr><td>PHP</td><td><?= phpversion() ?></td></tr>
+    <tr><td>Hôte MySQL</td><td><?= $host ?></td></tr>
+    <tr><td>Base</td><td><?= $dbname ?></td></tr>
+    <tr><td>Date/Heure</td><td><?= date('Y-m-d H:i:s') ?></td></tr>
+  </table>
+</div>
+</body>
+</html>

@@ -18,6 +18,7 @@
   roles:
     - nginx
     - php
+    - app
 
 - name: Déploiement de la base de données
   hosts: dbservers
