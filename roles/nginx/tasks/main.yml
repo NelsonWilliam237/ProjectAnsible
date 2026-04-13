@@ -31,9 +31,3 @@
     name: nginx
     state: started
     enabled: yes
-
-handlers:
-  - name: Recharger Nginx
-    service:
-      name: nginx
-      state: reloaded
