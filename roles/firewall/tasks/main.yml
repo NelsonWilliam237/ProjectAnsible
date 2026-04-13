@@ -19,6 +19,13 @@
     rule: allow
     port: "443"
 
+- name: Autoriser MySQL depuis le subnet interne (dbservers uniquement)
+  ufw:
+    rule: allow
+    from_ip: "10.0.2.0/24"
+    port: "3306"
+  when: "'dbservers' in group_names"
+
 - name: Activer UFW
   ufw:
     state: enabled
