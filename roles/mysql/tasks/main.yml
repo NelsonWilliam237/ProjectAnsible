@@ -24,13 +24,13 @@
     name: "{{ mysql_db_user }}"
     password: "{{ vault_mysql_db_password }}"
     priv: "{{ mysql_db_name }}.*:ALL"
-    host: "{{ mysql_db_host }}"
+    host: "10.0.2.%"
     state: present
     login_unix_socket: /var/run/mysqld/mysqld.sock
 
-- name: Autoriser MySQL à écouter sur toutes les interfaces
+- name: Autoriser MySQL sur toutes les interfaces
   lineinfile:
     path: /etc/mysql/mysql.conf.d/mysqld.cnf
-    regexp: '^bind-address'
-    line: 'bind-address = 0.0.0.0'
+    regexp: "^bind-address"
+    line: "bind-address = 0.0.0.0"
   notify: Redémarrer MySQL
