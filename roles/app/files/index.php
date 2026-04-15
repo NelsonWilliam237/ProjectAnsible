@@ -1,3 +1,4 @@
+<?php
 // Connexion base de données
 $host     = getenv('DB_HOST') ?: '10.0.2.13';
 $dbname   = getenv('DB_NAME') ?: 'app_db';
@@ -97,6 +98,7 @@ $statut_bg     = ['ouvert'=>'#fef2f2','en_cours'=>'#fffbeb','resolu'=>'#f0fdf4']
 $statut_labels = ['ouvert'=>'Ouvert','en_cours'=>'En cours','resolu'=>'Résolu'];
 $prio_labels   = ['faible'=>'Faible','moyenne'=>'Moyenne','haute'=>'Haute','critique'=>'Critique'];
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
