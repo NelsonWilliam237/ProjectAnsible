@@ -5,25 +5,34 @@
     state: directory
     owner: www-data
     group: www-data
-    mode: '0755'
+    mode: "0755"
 
-- name: Déployer la page index.php
-  template:
-    src: index.php.j2
+- name: Déployer l'application de ticketing
+  copy:
+    src: index.php
     dest: /var/www/html/app/index.php
     owner: www-data
     group: www-data
-    mode: '0644'
+    mode: "0644"
 
-- name: Déployer le fichier de config .env
+- name: Déployer le fichier .env
   template:
     src: env.j2
     dest: /var/www/html/app/.env
     owner: www-data
     group: www-data
-    mode: '0640'
+    mode: "0640"
 
-- name: Vérifier que le dossier web appartient à www-data
+- name: Définir les variables d'environnement pour PHP
+  template:
+    src: php-env.conf.j2
+    dest: /etc/php/8.1/fpm/conf.d/99-app-env.ini
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Redémarrer PHP-FPM
+
+- name: S'assurer que le dossier appartient à www-data
   file:
     path: /var/www/html/app
     owner: www-data
