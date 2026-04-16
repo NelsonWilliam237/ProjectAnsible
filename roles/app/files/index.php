@@ -3,7 +3,7 @@
 $host     = getenv('DB_HOST') ?: '10.0.2.13';
 $dbname   = getenv('DB_NAME') ?: 'app_db';
 $username = getenv('DB_USER') ?: 'app_user';
-$password = getenv('DB_PASSWORD') ?: '';
+$password = getenv('DB_PASSWORD') ?: 'AppPass456!';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
