@@ -1,6 +1,6 @@
 <?php
 // Connexion base de données
-/* $host     = getenv('DB_HOST') ?: '10.0.2.13';
+$host     = getenv('DB_HOST') ?: '10.0.2.13';
 $dbname   = getenv('DB_NAME') ?: 'app_db';
 $username = getenv('DB_USER') ?: 'app_user';
 $password = getenv('DB_PASSWORD') ?: '';
@@ -8,24 +8,6 @@ $password = getenv('DB_PASSWORD') ?: '';
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (Exception $e) {
-    die('<div style="padding:2rem;color:red">Erreur DB : ' . htmlspecialchars($e->getMessage()) . '</div>');
-}
-*/
-
-define('DB_HOST', '{{ DB_HOST }}');
-define('DB_NAME', '{{ DB_NAME }}');
-define('DB_USER', '{{ DB_USER }}');
-define('DB_PASSWORD', '{{ DB_PASSWORD }}');
-
-try {
-    $pdo = new PDO(
-        "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8",
-        DB_USER,
-        DB_PASSWORD
-    );
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 } catch (Exception $e) {
     die('<div style="padding:2rem;color:red">Erreur DB : ' . htmlspecialchars($e->getMessage()) . '</div>');
 }
