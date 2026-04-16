@@ -5,6 +5,17 @@ $dbname   = getenv('DB_NAME') ?: 'app_db';
 $username = getenv('DB_USER') ?: 'app_user';
 $password = getenv('DB_PASSWORD') ?: '';
 
+define('DB_HOST', '{{ db_host }}');
+define('DB_NAME', '{{ db_name }}');
+define('DB_USER', '{{ db_user }}');
+define('DB_PASSWORD', '{{ db_password }}');
+
+$pdo = new PDO(
+    "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME,
+    DB_USER,
+    DB_PASSWORD
+);
+
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
