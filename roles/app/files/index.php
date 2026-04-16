@@ -13,10 +13,10 @@ try {
 }
 */
 
-define('DB_HOST', '{{ db_host }}');
-define('DB_NAME', '{{ db_name }}');
-define('DB_USER', '{{ db_user }}');
-define('DB_PASSWORD', '{{ db_password }}');
+define('DB_HOST', '{{ DB_HOST }}');
+define('DB_NAME', '{{ DB_NAME }}');
+define('DB_USER', '{{ DB_USER }}');
+define('DB_PASSWORD', '{{ DB_PASSWORD }}');
 
 try {
     $pdo = new PDO(
